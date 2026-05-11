@@ -3,7 +3,7 @@
 @tailwind utilities;
 
 @layer base {
-  * {
+  *, *::before, *::after {
     box-sizing: border-box;
   }
 
@@ -22,16 +22,54 @@
 
 @layer components {
   .btn-primary {
-    @apply inline-block font-sans font-semibold text-center py-4 px-8 rounded-full transition-all duration-200 hover:opacity-90 active:scale-95 shadow-md;
+    @apply inline-block font-sans font-semibold text-center rounded-xl transition-all duration-200 hover:opacity-90 active:scale-[0.98] shadow-md;
     background-color: #8B4557;
     color: #FFFDF9;
   }
+}
 
-  .btn-primary:hover {
-    background-color: #7a3b4c;
-  }
+/* ─── Smooth hover cards ─── */
+.hover-lift {
+  transition: transform 0.25s ease, box-shadow 0.25s ease;
+}
+.hover-lift:hover {
+  transform: translateY(-3px);
+  box-shadow: 0 12px 32px rgba(0, 0, 0, 0.1);
+}
 
-  .section-container {
-    @apply max-w-4xl mx-auto px-4 sm:px-6;
+/* ─── Float animation for hero cover ─── */
+@keyframes float {
+  0%,
+  100% {
+    transform: translateY(0px);
   }
+  50% {
+    transform: translateY(-7px);
+  }
+}
+
+.animate-float {
+  animation: float 5s ease-in-out infinite;
+}
+
+/* ─── Subtle pulse on primary CTA ─── */
+@keyframes pulse-ring {
+  0% {
+    box-shadow: 0 0 0 0 rgba(139, 69, 87, 0.35);
+  }
+  70% {
+    box-shadow: 0 0 0 14px rgba(139, 69, 87, 0);
+  }
+  100% {
+    box-shadow: 0 0 0 0 rgba(139, 69, 87, 0);
+  }
+}
+
+.animate-pulse-cta {
+  animation: pulse-ring 2.4s cubic-bezier(0.4, 0, 0.6, 1) infinite;
+}
+
+/* ─── Tabular nums for timer ─── */
+.tabular {
+  font-variant-numeric: tabular-nums;
 }

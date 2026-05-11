@@ -1,3 +1,5 @@
+import Fade from './Fade'
+
 const BENEFITS = [
   'Saber qué gastos sí valen la pena y cuáles puedes recortar sin culpa.',
   'Evitar compras impulsivas que inflan el presupuesto sin mejorar la boda.',
@@ -8,12 +10,18 @@ const BENEFITS = [
 
 export default function Benefits() {
   return (
-    <section className="py-16 md:py-20" style={{ backgroundColor: '#F7ECEA' }}>
-      <div className="section-container">
-        <div className="max-w-2xl mx-auto">
+    <section className="py-16 md:py-24" style={{ backgroundColor: '#F7ECEA' }}>
+      <div className="max-w-3xl mx-auto px-4 sm:px-6">
 
-          {/* Heading */}
-          <div className="text-center mb-10">
+        {/* Heading */}
+        <Fade>
+          <div className="text-center mb-12">
+            <p
+              className="font-sans uppercase tracking-[0.2em] text-xs mb-4"
+              style={{ color: '#C4787A' }}
+            >
+              resultados esperados
+            </p>
             <h2
               className="font-serif font-bold"
               style={{ color: '#3D2B2B', fontSize: 'clamp(1.7rem, 4vw, 2.5rem)' }}
@@ -21,29 +29,35 @@ export default function Benefits() {
               Lo que vas a lograr
             </h2>
           </div>
+        </Fade>
 
-          {/* Lista */}
-          <ul className="space-y-4">
-            {BENEFITS.map((benefit, i) => (
-              <li
-                key={i}
-                className="flex items-start gap-4 rounded-xl p-4"
+        {/* Benefits list */}
+        <div className="space-y-3">
+          {BENEFITS.map((b, i) => (
+            <Fade key={i} delay={i * 75}>
+              <div
+                className="group flex items-start gap-4 rounded-2xl p-5 transition-all duration-300 hover:shadow-md"
                 style={{ backgroundColor: '#FFFDF9' }}
               >
-                <span
-                  className="flex-shrink-0 w-6 h-6 rounded-full flex items-center justify-center text-xs font-bold mt-0.5"
-                  style={{ backgroundColor: '#8B4557', color: '#FFFDF9' }}
+                {/* Gold check */}
+                <div
+                  className="flex-shrink-0 w-7 h-7 rounded-full flex items-center justify-center mt-0.5"
+                  style={{ backgroundColor: 'rgba(201,149,58,0.12)', border: '1px solid rgba(201,149,58,0.3)' }}
                 >
-                  ✓
-                </span>
-                <p className="font-sans text-sm sm:text-base leading-relaxed" style={{ color: '#3D2B2B', opacity: 0.82 }}>
-                  {benefit}
-                </p>
-              </li>
-            ))}
-          </ul>
+                  <span style={{ color: '#C9953A', fontSize: '0.7rem', fontWeight: 700 }}>✓</span>
+                </div>
 
+                <p
+                  className="font-sans text-sm sm:text-base leading-relaxed"
+                  style={{ color: '#3D2B2B', opacity: 0.8 }}
+                >
+                  {b}
+                </p>
+              </div>
+            </Fade>
+          ))}
         </div>
+
       </div>
     </section>
   )

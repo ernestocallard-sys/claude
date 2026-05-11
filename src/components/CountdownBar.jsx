@@ -8,7 +8,6 @@ function useCountdown() {
 
   useEffect(() => {
     let stored = localStorage.getItem(STORAGE_KEY)
-
     if (!stored) {
       stored = String(Date.now())
       localStorage.setItem(STORAGE_KEY, stored)
@@ -16,11 +15,7 @@ function useCountdown() {
 
     const endTime = parseInt(stored, 10) + COUNTDOWN_HOURS * 3_600_000
 
-    const tick = () => {
-      const remaining = endTime - Date.now()
-      setTimeLeft(remaining > 0 ? remaining : 0)
-    }
-
+    const tick = () => setTimeLeft(Math.max(0, endTime - Date.now()))
     tick()
     const id = setInterval(tick, 1000)
     return () => clearInterval(id)
@@ -29,75 +24,72 @@ function useCountdown() {
   if (timeLeft === null) return null
 
   return {
-    hours:   Math.floor(timeLeft / 3_600_000),
-    minutes: Math.floor((timeLeft % 3_600_000) / 60_000),
-    seconds: Math.floor((timeLeft % 60_000) / 1_000),
+    h: Math.floor(timeLeft / 3_600_000),
+    m: Math.floor((timeLeft % 3_600_000) / 60_000),
+    s: Math.floor((timeLeft % 60_000) / 1_000),
     expired: timeLeft === 0,
   }
 }
 
-const pad = (n) => String(n).padStart(2, '0')
+const z = (n) => String(n).padStart(2, '0')
 
-function TimeUnit({ value, label }) {
+function Digit({ value, label }) {
   return (
-    <div className="flex flex-col items-center leading-none">
+    <span className="inline-flex items-baseline gap-0.5">
       <span
-        className="font-mono font-bold text-warm-white tabular-nums"
-        style={{ fontSize: '1.1rem', lineHeight: 1 }}
+        className="font-mono font-bold tabular-nums"
+        style={{ color: '#FFFDF9', fontSize: '0.95rem', lineHeight: 1 }}
       >
-        {pad(value)}
+        {z(value)}
       </span>
-      <span className="font-sans uppercase tracking-widest text-warm-white/60" style={{ fontSize: '0.55rem' }}>
-        {label}
-      </span>
-    </div>
+      <span style={{ color: 'rgba(255,253,249,0.55)', fontSize: '0.6rem' }}>{label}</span>
+    </span>
   )
 }
 
 export default function CountdownBar() {
-  const countdown = useCountdown()
+  const t = useCountdown()
 
   return (
     <div
-      className="fixed top-0 left-0 right-0 z-50 py-2 px-4"
+      className="fixed top-0 left-0 right-0 z-50 h-14 md:h-11 flex items-center justify-center px-4"
       style={{ backgroundColor: '#8B4557' }}
     >
-      <div className="max-w-5xl mx-auto flex flex-col sm:flex-row items-center justify-center gap-2 sm:gap-6">
+      <a
+        href={CHECKOUT_FULL_GUIDE}
+        target="_blank"
+        rel="noopener noreferrer"
+        className="flex flex-col sm:flex-row items-center gap-1.5 sm:gap-4 text-center no-underline"
+      >
         {/* Texto de oferta */}
-        <a
-          href={CHECKOUT_FULL_GUIDE}
-          target="_blank"
-          rel="noopener noreferrer"
-          className="font-sans font-medium text-warm-white/90 text-xs sm:text-sm text-center leading-snug hover:text-warm-white transition-colors"
+        <span
+          className="font-sans font-medium leading-none"
+          style={{ color: 'rgba(255,253,249,0.9)', fontSize: '0.72rem' }}
         >
-          Especial Día de las Madres: guía completa por solo USD ${PRICE_FULL_CURRENT} · Termina hoy
-        </a>
+          Especial Día de las Madres · Guía completa por solo USD ${PRICE_FULL_CURRENT} · Termina hoy
+        </span>
 
-        {/* Contador */}
-        {countdown && !countdown.expired && (
-          <div className="flex items-center gap-2">
-            <span className="font-sans text-xs text-warm-white/70 hidden sm:inline">
-              Oferta termina en:
-            </span>
-            <div
-              className="flex items-center gap-1.5 px-2.5 py-1 rounded-full"
-              style={{ backgroundColor: 'rgba(255,253,249,0.15)' }}
-            >
-              <TimeUnit value={countdown.hours}   label="horas" />
-              <span className="text-warm-white/50 font-bold text-sm pb-1">·</span>
-              <TimeUnit value={countdown.minutes} label="min" />
-              <span className="text-warm-white/50 font-bold text-sm pb-1">·</span>
-              <TimeUnit value={countdown.seconds} label="seg" />
-            </div>
-          </div>
-        )}
-
-        {countdown && countdown.expired && (
-          <span className="font-sans text-xs text-warm-white/70 italic">
-            La oferta especial ha finalizado
+        {/* Timer */}
+        {t && !t.expired && (
+          <span
+            className="flex items-center gap-1.5 px-2.5 py-1 rounded-full flex-shrink-0"
+            style={{ backgroundColor: 'rgba(255,253,249,0.15)' }}
+          >
+            <span style={{ color: 'rgba(255,253,249,0.55)', fontSize: '0.6rem' }}>termina en</span>
+            <Digit value={t.h} label="h" />
+            <span style={{ color: 'rgba(255,253,249,0.4)', fontSize: '0.75rem' }}>·</span>
+            <Digit value={t.m} label="m" />
+            <span style={{ color: 'rgba(255,253,249,0.4)', fontSize: '0.75rem' }}>·</span>
+            <Digit value={t.s} label="s" />
           </span>
         )}
-      </div>
+
+        {t && t.expired && (
+          <span style={{ color: 'rgba(255,253,249,0.6)', fontSize: '0.7rem' }} className="italic">
+            Oferta finalizada
+          </span>
+        )}
+      </a>
     </div>
   )
 }

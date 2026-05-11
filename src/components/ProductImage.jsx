@@ -1,12 +1,11 @@
-// Renderiza la imagen del producto o un placeholder elegante si la URL no es válida.
-export default function ProductImage({ src, alt, className = '' }) {
+export default function ProductImage({ src, alt, className = '', style = {} }) {
   const isPlaceholder = !src || src.startsWith('PEGAR_URL')
 
   if (isPlaceholder) {
     return (
       <div
         className={`flex flex-col items-center justify-center rounded-xl border-2 border-dashed text-center p-4 ${className}`}
-        style={{ borderColor: '#C4787A80', backgroundColor: '#F7ECEA' }}
+        style={{ borderColor: '#C4787A80', backgroundColor: '#F7ECEA', ...style }}
       >
         <span className="font-sans text-xs font-medium leading-tight" style={{ color: '#8B4557' }}>
           {alt}
@@ -23,6 +22,7 @@ export default function ProductImage({ src, alt, className = '' }) {
       src={src}
       alt={alt}
       className={`object-cover ${className}`}
+      style={style}
       loading="lazy"
     />
   )
