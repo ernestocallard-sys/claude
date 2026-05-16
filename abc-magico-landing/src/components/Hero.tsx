@@ -20,9 +20,9 @@ export default function Hero() {
   return (
     <section id="inicio" className="bg-[#FAFAF7] py-12 sm:py-16 lg:py-20">
       <div className="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8">
-        <div className="grid lg:grid-cols-2 gap-10 lg:gap-14 items-center">
+        <div className="grid md:grid-cols-2 gap-10 lg:gap-14 items-center">
           {/* Text */}
-          <div className="order-2 lg:order-1">
+          <div className="order-2 md:order-1">
             <div className="flex flex-wrap gap-2 mb-5">
               {trustChips.map((c) => (
                 <span key={c.label} className="inline-flex items-center gap-1.5 bg-[#F7E8D0] text-[#3D2B1F] text-xs font-semibold px-3 py-1.5 rounded-full">
@@ -65,14 +65,14 @@ export default function Hero() {
           </div>
 
           {/* Image */}
-          <div className="order-1 lg:order-2 flex justify-center">
-            <div className="relative w-full max-w-sm lg:max-w-full">
+          <div className="order-1 md:order-2 flex justify-center">
+            <div className="relative w-full max-w-xs sm:max-w-sm md:max-w-full">
               <div className="absolute inset-0 bg-[#F7E8D0] rounded-4xl blur-2xl opacity-60 scale-95" />
               <img
                 src={IMAGES.heroKit}
                 alt="Kit ABC Mágico completo — cuadernos de lectura y escritura para niños"
                 fetchPriority="high"
-                className="relative w-full h-auto object-contain drop-shadow-xl rounded-3xl"
+                className="relative w-full h-auto max-h-64 sm:max-h-80 md:max-h-none object-contain drop-shadow-xl rounded-3xl"
                 onError={(e) => {
                   (e.currentTarget as HTMLImageElement).style.display = 'none';
                 }}

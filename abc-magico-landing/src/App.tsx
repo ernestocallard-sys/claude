@@ -19,8 +19,11 @@ import Footer from './components/Footer';
 export default function App() {
   return (
     <div className="font-poppins">
-      <TopBar />
-      <Header />
+      {/* Single sticky wrapper — TopBar + Header always aligned regardless of TopBar height */}
+      <div className="sticky top-0 z-50">
+        <TopBar />
+        <Header />
+      </div>
       <main>
         <Hero />
         <PainSection />

@@ -38,16 +38,20 @@ export default function HowItWorks() {
 
         <div className="max-w-2xl mx-auto">
           {steps.map((s, i) => (
-            <div key={s.num} className="flex gap-5 items-start mb-7 last:mb-0">
-              <div className="flex flex-col items-center">
-                <div className="w-12 h-12 rounded-full bg-[#3D2B1F] text-[#C9953A] font-extrabold text-sm flex items-center justify-center shrink-0">
+            /* items-stretch so the left column (number + connector) fills the full row height */
+            <div key={s.num} className="flex gap-5 items-stretch">
+              {/* Left: number circle + vertical connector */}
+              <div className="flex flex-col items-center flex-shrink-0 w-12">
+                <div className="w-12 h-12 rounded-full bg-[#3D2B1F] text-[#C9953A] font-extrabold text-sm flex items-center justify-center flex-shrink-0">
                   {s.num}
                 </div>
                 {i < steps.length - 1 && (
-                  <div className="w-px flex-1 bg-[#C9953A]/30 mt-2 min-h-[28px]" />
+                  <div className="w-px flex-1 bg-[#C9953A]/30 mt-2" />
                 )}
               </div>
-              <div className="pb-7 last:pb-0">
+
+              {/* Right: content — pb-8 creates visual gap between steps */}
+              <div className={i < steps.length - 1 ? 'pb-8 pt-1' : 'pt-1'}>
                 <h3 className="text-lg font-bold text-[#3D2B1F] mb-1">{s.title}</h3>
                 <p className="text-sm sm:text-base text-[#6F6A64] leading-relaxed">{s.text}</p>
               </div>

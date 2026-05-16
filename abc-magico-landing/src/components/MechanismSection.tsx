@@ -23,11 +23,24 @@ export default function MechanismSection() {
           </p>
         </div>
 
-        {/* Flow visual */}
-        <div className="flex flex-wrap items-center justify-center gap-2 sm:gap-1 mb-10">
+        {/* Mobile: grid 3x2 — no arrows */}
+        <div className="grid grid-cols-3 gap-2 sm:hidden mb-10">
           {flowSteps.map((step, i) => (
-            <div key={step} className="flex items-center gap-1 sm:gap-2">
-              <span className="bg-[#3D2B1F] text-[#FAFAF7] text-xs sm:text-sm font-bold px-4 py-2 rounded-full">
+            <span
+              key={step}
+              className="bg-[#3D2B1F] text-[#FAFAF7] text-xs font-bold px-2 py-2 rounded-full text-center leading-tight"
+            >
+              <span className="text-[#C9953A] block text-[10px]">{i + 1}</span>
+              {step}
+            </span>
+          ))}
+        </div>
+
+        {/* sm+: horizontal flow with arrows */}
+        <div className="hidden sm:flex flex-wrap items-center justify-center gap-2 mb-10">
+          {flowSteps.map((step, i) => (
+            <div key={step} className="flex items-center gap-2">
+              <span className="bg-[#3D2B1F] text-[#FAFAF7] text-sm font-bold px-4 py-2 rounded-full">
                 {step}
               </span>
               {i < flowSteps.length - 1 && (

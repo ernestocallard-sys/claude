@@ -13,7 +13,7 @@ export default function Header() {
   const [open, setOpen] = useState(false);
 
   return (
-    <header className="bg-[#FAFAF7] border-b border-[#F5E6E8] sticky top-[40px] z-40">
+    <header className="bg-[#FAFAF7] border-b border-[#F5E6E8]">
       <div className="max-w-5xl mx-auto px-4 sm:px-6 py-3 flex items-center justify-between gap-4">
         <a href="#" className="font-bold text-xl text-[#3D2B1F] tracking-tight">
           🌙 Lunera

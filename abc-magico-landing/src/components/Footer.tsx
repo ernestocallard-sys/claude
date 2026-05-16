@@ -2,7 +2,7 @@ import { PRODUCT } from '../data/content';
 
 export default function Footer() {
   return (
-    <footer className="bg-[#3D2B1F] text-[#F7E8D0] py-12">
+    <footer className="bg-[#3D2B1F] text-[#F7E8D0] pt-12 pb-28 md:pb-12">
       <div className="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="flex flex-col items-center text-center gap-5">
           <div>

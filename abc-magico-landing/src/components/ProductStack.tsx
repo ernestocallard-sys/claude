@@ -41,7 +41,10 @@ const products = [
 
 function FallbackCard({ title }: { title: string }) {
   return (
-    <div className="w-full aspect-[3/4] bg-[#F7E8D0] rounded-2xl flex items-center justify-center">
+    <div
+      style={{ display: 'none' }}
+      className="w-full h-full bg-[#F7E8D0] rounded-2xl items-center justify-center"
+    >
       <span className="text-[#C9953A] text-sm font-semibold text-center px-4">{title}</span>
     </div>
   );
@@ -70,9 +73,8 @@ export default function ProductStack() {
                   loading={i < 2 ? 'eager' : 'lazy'}
                   className="h-full w-auto object-contain drop-shadow-md"
                   onError={(e) => {
-                    const el = e.currentTarget;
-                    el.style.display = 'none';
-                    const fallback = el.nextElementSibling as HTMLElement | null;
+                    e.currentTarget.style.display = 'none';
+                    const fallback = e.currentTarget.nextElementSibling as HTMLElement | null;
                     if (fallback) fallback.style.display = 'flex';
                   }}
                 />
