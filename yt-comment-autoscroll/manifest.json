@@ -1,0 +1,32 @@
+{
+  "manifest_version": 3,
+  "name": "YT Comment Auto-Scroll",
+  "version": "1.0.0",
+  "description": "Hace scroll vertical automatico cada ~3s para cargar todos los comentarios de YouTube (lazy load) de forma humana, sin disparar el bloqueo.",
+  "permissions": ["storage", "activeTab", "scripting"],
+  "host_permissions": [
+    "https://www.youtube.com/*",
+    "https://m.youtube.com/*"
+  ],
+  "action": {
+    "default_title": "YT Comment Auto-Scroll",
+    "default_popup": "popup.html",
+    "default_icon": {
+      "16": "icons/icon16.png",
+      "48": "icons/icon48.png",
+      "128": "icons/icon128.png"
+    }
+  },
+  "icons": {
+    "16": "icons/icon16.png",
+    "48": "icons/icon48.png",
+    "128": "icons/icon128.png"
+  },
+  "content_scripts": [
+    {
+      "matches": ["https://www.youtube.com/*", "https://m.youtube.com/*"],
+      "js": ["content.js"],
+      "run_at": "document_idle"
+    }
+  ]
+}
